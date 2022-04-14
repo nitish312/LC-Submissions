@@ -13,21 +13,19 @@ class Solution {
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
         
-        TreeNode *ptr = root;
+        // base condition
+        if(root == NULL) return nullptr;
         
-        while(ptr != NULL){
-            
-            if(ptr->val == val){
-                return ptr;
-            }
-            else if(ptr->val > val){
-                ptr = ptr->left;
-            }
-            else{
-                ptr = ptr->right;
-            }
-        }
+        // choice diagram - thinking of a smaller input
+        if(root->val == val){
+            return root;
+        } 
+        else if(root->val > val){
+            return searchBST(root->left, val);
+        } 
+        else{
+            return searchBST(root->right, val);
+        } 
         
-        return ptr;
     }
 };
