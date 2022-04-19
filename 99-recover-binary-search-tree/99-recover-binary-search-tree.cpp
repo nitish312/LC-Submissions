@@ -10,24 +10,31 @@
  * };
  */
 class Solution {
-    TreeNode* first=NULL;
-    TreeNode* second=NULL;
+    TreeNode* first = NULL;
+    TreeNode* second = NULL;
     TreeNode* prev = NULL;
 public:
     void recoverTree(TreeNode* root) {
+        
         help(root);
         swap(first->val, second->val);
+    
     }
     
     void help(TreeNode* root){
-        if(root==NULL)  return;
+    
+        if(!root) return;
+        
         help(root->left);
+        
         if(prev == NULL) prev = root;
-        else {
-            if(first==NULL && prev->val >= root->val)   first=prev;
-            if(first!=NULL && prev->val >= root->val)   second=root;
+        else{
+            
+            if(first == NULL && prev->val >= root->val) first = prev;
+            if(first != NULL && prev->val >= root->val) second = root;
         }
-        prev=root;
+        
+        prev = root;
         help(root->right);
     }
 };
