@@ -1,16 +1,23 @@
 class Solution {
 public:
-    // DP - Recursion to memoization
-    int dp[20];
+    // DP - TopDownn (Tabulation)
     
     int numTrees(int n) {
+         
+        vector<int> dp(20 , 0);
+        dp[0] = 1;
+        dp[1] = 1;
+        dp[2] = 2; 
         
-        if(dp[n]) return dp[n];
-        
-        if(n <= 1) return 1;
-        
-        for(int i=1; i<=n; i++) 
-            dp[n] += numTrees(i-1) * numTrees(n-i);
+        for(int i=3; i<=n; i++){
+            
+            for(int j=1; j<=i; j++){
+                
+                int left = j - 1;
+                int right = i - (left + 1);
+                dp[i] += dp[left] * dp[right];
+            }
+        }
         
         return dp[n];
     }
