@@ -1,43 +1,59 @@
 class Solution {
 public:
     
-    double findMedian(vector<int>&nums1, vector<int>&nums2){
-        
-        int m = nums1.size();
-        int n = nums2.size();
-        if(m > n)
-            return findMedian(nums2, nums1);
-        int low = 0, high = m;
-        
-        while(low <= high){
-            
-            int partx = low + (high - low) / 2;
-            int party = (m + n + 1) / 2 - partx;
-            int maxlx = (partx == 0) ? INT_MIN : nums1[partx - 1];
-            int minrx = (partx == m) ? INT_MAX : nums1[partx];
-            int maxly = (party == 0) ? INT_MIN : nums2[party - 1];
-            int minry = (party == n) ? INT_MAX : nums2[party];
-            
-            if(maxlx <= minry && maxly <= minrx){
-                if((m + n) % 2 == 0)
-                    return (double)(max(maxlx,maxly)+min(minrx,minry)) / 2;
-                else
-                    return (double)(max(maxlx,maxly));
-            }
-            else if(maxlx > minry)
-                high = partx - 1;
-            else
-                low = partx + 1;
-        }
-        return -1.0;
-    }
     
+        
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2){
         
-        double ans;
+        int m,n;
+        m=nums1.size();
+        n=nums2.size();
+        int i,j,k;
+        vector<int> nums3(m+n,0);
+        i=j=k=0;
+        double median;
+        while(i<m && j<n)
+        {
+            if(nums1[i]<nums2[j]){
+                nums3[k] = nums1[i];
+                k++;
+                i++;
+
+            }
+            else{
+                nums3[k] = nums2[j];
+                k++;
+                j++;
+            }
+        }
         
-        ans = findMedian(nums1, nums2);
-        
-        return ans;   
+        if (i==m){
+            while(j<n)
+            {
+             nums3[k] = nums2[j];
+             k++;
+             j++;
+            }
+        }
+        else
+        {
+         while(i<m)
+            {
+             nums3[k] = nums1[i];
+             k++;
+             i++;
+            }   
+        }
+
+        if((m+n)%2 != 0){
+           median = nums3[(m+n)/2];
+
+        }
+        else{
+            median = ((double) (nums3[(m+n)/2] + nums3[((m+n)/2)-1]))/2;
+
+        }
+        return median;
+           
     }
 };
