@@ -19,25 +19,31 @@
 
 class PeekingIterator : public Iterator {
 public:
+    stack<int> st;
 	PeekingIterator(const vector<int>& nums) : Iterator(nums) {
 	    // Initialize any member here.
 	    // **DO NOT** save a copy of nums and manipulate it directly.
 	    // You should only use the Iterator interface methods.
-	    
+	    for(int i=nums.size()-1; i>=0; i--){
+            st.push(nums[i]);
+        }
 	}
 	
     // Returns the next element in the iteration without advancing the iterator.
 	int peek() {
-        return Iterator(*this).next();
+        return st.top();
 	}
 	
 	// hasNext() and next() should behave the same as in the Iterator interface.
 	// Override them if needed.
 	int next() {
-	    return Iterator::next();
+	    int temp = st.top();
+        st.pop();
+        return temp;
 	}
 	
 	bool hasNext() const {
-	    return Iterator::hasNext();
+	    if(st.empty()) return false;
+        else return true;
 	}
 };
