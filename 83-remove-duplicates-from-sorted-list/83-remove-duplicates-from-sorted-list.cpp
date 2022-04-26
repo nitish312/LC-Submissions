@@ -15,13 +15,13 @@ public:
         if(!head) return NULL;
         
         ListNode *temp = head;
-        // ListNode *delNode = NULL;
+        ListNode *delNode = NULL;
         while(temp->next){
             if(temp && temp->val == temp->next->val){
                 
-                // delNode = temp->next;
+                delNode = temp->next;
                 temp->next = temp->next->next;
-                // free(delNode);
+                delete delNode;
             }
             else{
                 temp = temp->next;
