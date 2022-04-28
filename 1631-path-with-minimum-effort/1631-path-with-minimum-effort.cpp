@@ -1,32 +1,61 @@
 class Solution {
+
+private:
+    vector<vector<bool>> visited;
+    vector<int> x_points = {1, 0, -1, 0};
+    vector<int> y_points = {0, 1, 0, -1};
+    int n;
+    int m;
+
 public:
+    
+    bool isValid(vector<vector<int>>& h, int x, int y) {
+        
+        return x < n and x >= 0 and y < m and y >= 0;
+    }
+	
+    bool recDFS(vector<vector<int>>& h, int k, int x, int y) {
+        
+        visited[x][y] = true;
+        
+        if (x == n-1 && y == m-1) return true;
+            
+        for (int i = 0; i < 4; i++) {
+            
+            int x_curr = x + x_points[i];
+            int y_curr = y + y_points[i];
+            
+            if (isValid(h, x_curr, y_curr) && !visited[x_curr][y_curr] &&                               abs(h[x_curr][y_curr] - h[x][y]) <= k){
+            
+                if (recDFS(h, k, x_curr, y_curr)) return true;
+            }
+        }
+
+        return false;
+    }
+    
+    bool possibleLessEqK(vector<vector<int>>& h, int k) {
+        
+        visited.assign(n,vector<bool> (m, false));
+        
+        return recDFS(h, k, 0, 0);
+    }
     
     int minimumEffortPath(vector<vector<int>>& heights) {
         
-        int m = heights.size();
-        int n = heights[0].size();
+        n = heights.size();
+        m = heights[0].size();
         
-        int dirs[5] = {-1, 0, 1, 0, -1};
-
-        vector<vector<int>> efforts(m, vector<int>(n, INT_MAX));
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-
-        pq.emplace(0, 0); // First item is effort, second is row * 100 + col
-        while (!pq.empty()) {
-              int effort = pq.top().first;
-              int x = pq.top().second / 100, y = pq.top().second % 100;
-              pq.pop();
-
-              if (effort >= efforts[x][y]) continue;
-              efforts[x][y] = effort;
-
-              for (int i = 0; i < 4; i++) {
-                int nx = x + dirs[i], ny = y + dirs[i + 1];
-                if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
-                int n_effort = max(effort, abs(heights[x][y] - heights[nx][ny]));
-                pq.emplace(n_effort, nx * 100 + ny);
-              }
+        int start = 0, end = 1e6, mid;
+        while (start < end) {
+            mid = start + (end - start) / 2;
+            
+            if (possibleLessEqK(heights, mid))
+                end = mid;
+            else 
+                start = mid + 1;
         }
-        return efforts[m-1][n-1];
+        
+        return start;
     }
 };
