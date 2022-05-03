@@ -2,22 +2,16 @@ class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         
-        int rows = matrix.size();
-        int cols = matrix[0].size();
+        bool found = false;
         
-        if(rows == 0 && cols == 0) return false;
-        
-        int start = 0, end = rows * cols - 1, mid;
-        while(start <= end){
-            
-            mid = start + (end - start) / 2;
-            int index = matrix[mid / cols][mid % cols];
-            
-            if(index == target) return true;
-            else if(index < target) start = mid + 1;
-            else end = mid - 1;
+        for(int i=0; i<matrix.size(); i++){
+            for(int j=0; j<matrix[i].size(); j++){
+                if(matrix[i][j] == target){
+                    found = true;
+                }
+            }
         }
         
-        return false;
+        return found;
     }
 };
