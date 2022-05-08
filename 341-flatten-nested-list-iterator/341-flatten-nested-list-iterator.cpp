@@ -23,7 +23,6 @@ private:
 public:
     
     vector<int> v;
-    int i = 0;
     
     NestedIterator(vector<NestedInteger> &nestedList) {
         dfs(nestedList);
@@ -42,17 +41,7 @@ public:
         }        
     }
     
-    // void dfs(const vector<NestedInteger> &nestedList) {
-    //     for (const auto& x : nestedList) {
-    //         if (x.isInteger()) {
-    //             // cout << "found integer " << x.getInteger() << endl;
-    //             v.push_back(x.getInteger());
-    //         } else {
-    //             // cout << "found list of size = " << x.getList().size() << endl;
-    //             dfs(x.getList());
-    //         }
-    //     }        
-    // }
+    int i = 0;
     
     int next() {
         return v[i++];
