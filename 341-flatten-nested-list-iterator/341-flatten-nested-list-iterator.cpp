@@ -21,38 +21,45 @@ private:
     stack<NestedInteger> nodes;
     
 public:
+    
+    vector<int> v;
+    int i = 0;
+    
     NestedIterator(vector<NestedInteger> &nestedList) {
-        
-        int size = nestedList.size();
-        for(int i=size-1; i >= 0; --i) {
-            nodes.push(nestedList[i]);
-        }
+        dfs(nestedList);
+        // print();
     }
     
+    void dfs(const vector<NestedInteger> &nestedList) {
+        for (const auto& x : nestedList) {
+            if (x.isInteger()) {
+                // cout << "found integer " << x.getInteger() << endl;
+                v.push_back(x.getInteger());
+            } else {
+                // cout << "found list of size = " << x.getList().size() << endl;
+                dfs(x.getList());
+            }
+        }        
+    }
+    
+    // void dfs(const vector<NestedInteger> &nestedList) {
+    //     for (const auto& x : nestedList) {
+    //         if (x.isInteger()) {
+    //             // cout << "found integer " << x.getInteger() << endl;
+    //             v.push_back(x.getInteger());
+    //         } else {
+    //             // cout << "found list of size = " << x.getList().size() << endl;
+    //             dfs(x.getList());
+    //         }
+    //     }        
+    // }
+    
     int next() {
-        
-        int result = nodes.top().getInteger();
-        nodes.pop();
-        return result;
+        return v[i++];
     }
     
     bool hasNext() {
-        
-        while(!nodes.empty()) {
-            NestedInteger curr = nodes.top();
-            if(curr.isInteger()) {
-                return true;
-            }
-
-            nodes.pop();
-            vector<NestedInteger>& adjs = curr.getList();
-            int size = adjs.size();
-            for(int i = size - 1; i >= 0; --i) {
-                nodes.push(adjs[i]);
-            }
-        }
-        
-        return false;
+        return i < v.size();
     }
 };
 
