@@ -1,16 +1,13 @@
 class Solution {
 public:
     
-    void help(vector<vector<int>>& res, vector<int>& comb, int k, int n, int sum, int num){
-        
+    void help(vector<vector<int>>& res, vector<int>& comb, int k, int n, int sum, int num){   
         if(sum==n && comb.size()==k){
             res.push_back(comb);
             return;
         }
         
-        if(num >= 10 || sum<0){
-            return;
-        }
+        if(num >= 10 || sum<0) return;
         
         comb.push_back(num);
         help(res, comb, k, n, sum+num, num+1);
