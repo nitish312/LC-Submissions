@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int countVowelStrings(int n) {  
+    int countVowelStrings(int n) {
         
         vector<int> dp = {0,1,1,1,1,1};
         
