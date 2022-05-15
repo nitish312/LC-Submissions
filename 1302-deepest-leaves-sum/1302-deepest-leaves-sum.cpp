@@ -11,24 +11,30 @@
  */
 class Solution {
 public:
-    int deepestLeavesSum(TreeNode* root) {
+    
+    int d = INT_MIN;
+    int sum = 0;
+    
+    void fullSum(TreeNode *root,int level){
         
-        int sum = 0, n;
-        queue<TreeNode*> q; // required for level-order traversal
-        q.push(root);
-        while(!q.empty()){
-            
-            sum = 0, n = q.size(); // reset sum when deeper level is reached and accumulate for that level
-            for(int i=0; i<n; i++){
-                
-                auto top = q.front(); 
-                q.pop();
-                sum += top->val;
-                
-                if(top->left) q.push(top->left);
-                if(top->right) q.push(top->right);
-            }                
+        if(root == NULL) return;
+        
+        if(level > d){
+            sum = root->val;
+            d = level;
         }
+        else if(level == d){
+            sum = sum + root->val;
+        }
+        
+        fullSum(root->left, level+1);
+        fullSum(root->right, level+1);
+    }
+    
+    int deepestLeavesSum(TreeNode* root){
+        
+        fullSum(root,0);
+        
         return sum;
     }
 };
