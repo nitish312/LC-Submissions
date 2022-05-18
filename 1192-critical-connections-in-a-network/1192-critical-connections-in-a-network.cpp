@@ -1,61 +1,34 @@
-#define INF 0x3f3f3f3f
 class Solution {
+    vector<vector<int>> g, ret;
+    vector<int> dfn, low;
+    int timestamp = 0;
 public:
-    
-    vector < vector <int> > adj, bridges;
-    vector <bool> visited; 
-    
-    vector <int> disc, low;
-    
-    void dfs(int u, int parent)
-    {
-        static int tim = 1;
-        disc[u] = low[u] = tim++;
-        int child = 0;
-        visited[u] = true;
-        
-        for(auto ele: adj[u])
-        {
-            if(!visited[ele])
-            {
-                child++;
-                dfs(ele, u);
-                low[u] = min(low[u], low[ele]);
-                if(low[ele] > disc[u])
-                {
-                    vector <int> temp;
-                    temp.push_back(u);
-                    temp.push_back(ele);
-                    bridges.push_back(temp);
-                }
-            }
-            else if (ele != parent)
-            {
-                low[u] = min(low[u], disc[ele]);
-            }
+    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) {
+        dfn = vector<int>(n);
+        low = vector<int>(n);
+        g.resize(n);
+        for(auto& c: connections) {
+            int u = c[0], v = c[1];
+            g[u].push_back(v);
+            g[v].push_back(u);
         }
+        dfs(0, -1);
+        return ret;
     }
     
-    vector<vector<int>> criticalConnections(int n, vector<vector<int>>& connections) 
-    {
-        adj.resize(n);
-        
-        for(int i = 0; i < connections.size(); i++)
-        {
-            adj[connections[i][0]].push_back(connections[i][1]);
-            adj[connections[i][1]].push_back(connections[i][0]);
+    void dfs(int cur, int pre) {
+        if(dfn[cur] > 0) 
+            return;
+        dfn[cur] = low[cur] = ++timestamp;
+        for(int next: g[cur]) {
+            if(next == pre) {
+                continue;
+            }
+            dfs(next, cur);
+            low[cur] = min(low[cur], low[next]);
+            if(low[next] > dfn[cur]) {
+                ret.push_back({cur, next});
+            }
         }
-                
-        visited.resize(n, false);
-        disc.resize(n, INF);
-        low.resize(n, INF);
-        
-        for(int i = 0; i < n; i++)
-        {
-            if(!visited[i])
-                dfs(i, -1);
-        }
-                
-        return bridges;
     }
 };
