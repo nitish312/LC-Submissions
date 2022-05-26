@@ -26,7 +26,6 @@ public:
             right++;
         }
         
-        if(shortest == INT_MAX) return 0;
-        else return shortest;
+        return (shortest == INT_MAX) ? 0 : shortest;
     }
 };
