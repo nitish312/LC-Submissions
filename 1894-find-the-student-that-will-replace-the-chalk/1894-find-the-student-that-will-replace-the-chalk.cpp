@@ -2,17 +2,30 @@ class Solution {
 public:
     int chalkReplacer(vector<int>& chalk, int k) {
         
-        size_t sum=0;
-        for(auto &x: chalk)
-            sum+=x;    // getting sum of all chalk values
+        int n = chalk.size();
         
-        k = k%sum;   // modifyig k so that we dont have to do that much iterations
+        long long int sum = 0, mid;
         
-        for(int i=0;i<chalk.size();i++)  
-        {  if( k-chalk[i] < 0) return i;
-            else
-                k-=chalk[i];
+        vector<long long int>v(n, 0);
+        
+        for(int i=0; i<n; i++){
+            
+            sum += chalk[i];
+            v[i] = sum;
         }
-    return chalk.size()-1;
+        
+        k %= sum;
+        
+        int start = 0, end = n-1;
+        while(start <= end){
+            
+            mid = start + (end - start) / 2;
+            
+            if(v[mid] == k) return mid + 1;
+            else if(v[mid] < k) start = mid + 1;
+            else end = mid - 1; 
+        }
+        
+        return start;
     }
 };
