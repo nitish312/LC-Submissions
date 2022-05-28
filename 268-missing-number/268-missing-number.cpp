@@ -4,14 +4,15 @@ public:
         
         int n = nums.size();
         
-        int sum = 0;
+        int arraySum = 0;
         
-        for(int i=0; i<n; i++){
-            sum += nums[i];
-        }
+        for(int a: nums){
+            
+            arraySum += a;
+        } 
+            
+        int realSum = n * (n + 1) / 2;
         
-        int allSum = n * (n+1) / 2;
-        
-        return allSum - sum;
+        return realSum - arraySum;
     }
 };
