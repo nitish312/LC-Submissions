@@ -4,18 +4,14 @@ public:
         
         int n = nums.size();
         
-        set<int> st;
+        int sum = 0;
         
         for(int i=0; i<n; i++){
-            
-            st.insert(nums[i]);
+            sum += nums[i];
         }
         
-        for(int i=0; i<=n; i++){
-            
-            if(st.find(i) == st.end()) return i;
-        }
+        int allSum = n * (n+1) / 2;
         
-        return -1;
+        return allSum - sum;
     }
 };
