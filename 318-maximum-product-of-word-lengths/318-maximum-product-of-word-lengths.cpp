@@ -2,27 +2,38 @@ class Solution {
 public:
     int maxProduct(vector<string>& words) {
         
-        vector<int> arr(words.size());
+        int n = words.size();
         
-        int ans = 0, s1, s2;
-        
-        for(int i=0; i<words.size(); i++){
+        int arr[n];
+		// 26 chars so if one char occurs then make 1 in binary string and other places will be 0
+        for(int i=0; i<n; i++){
             
-            s1 = words[i].size();
-            
-            for(int j=0; j<s1; j++){
+            int cur = 0;
+			// making a binary number of each string
+            for(int j=0; j<words[i].size(); j++){
                 
-                arr[i] |= 1<<(words[i][j] - 'a');
+                int nm = words[i][j] - 'a';
+                cur = cur | 1<<nm;
             }
             
-            for(int j=0; j<i; j++){
+            arr[i] = cur;
+        }
+        
+        int res = 0;
+        for(int i=0; i<n; i++){
+            
+            for(int j=i+1; j<n; j++){
                 
-                s2 = words[j].size();
-                
-                if((arr[i] & arr[j]) == 0) ans = max(ans, s1*s2);
+			// if two numbers have a common string then their bitwise and will be a non-zero number
+                if( (arr[i]&arr[j]) == 0 ){
+                    
+                    int val = words[i].size() * words[j].size();
+					//store the max lenght product
+                    res = max(res, val);
+                }
             }
         }
         
-        return ans;
+        return res;
     }
 };
