@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    int check(vector<int> &position, int mid, int m){
+    bool check(vector<int> &position, int mid, int m){
         
         int n = position.size(); //no of buckets
         int prev = 0; //idx of previous ball placed
