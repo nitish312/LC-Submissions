@@ -4,16 +4,16 @@ public:
         
         int start = 1, end = 0;
         
-        for(auto a: nums){
-            end = max(end, a);
-        }
+        for(auto a: nums) end = max(end, a);
         
         while(start < end){
+            
             int mid = start + (end - start) / 2;
             
             int sum = 0;
             
             for(auto a: nums){
+                
                 sum += (a + mid - 1) / mid;
             }
             
