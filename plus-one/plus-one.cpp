@@ -19,11 +19,8 @@ public:
         }
         
         if(digits[0] == 0){
-            
-            vector<int> allNines(n+1, 0);
-            allNines[0] = 1;
-            
-            return allNines;
+            digits.push_back(0);
+            digits[0] = 1;
         }
         
         return digits;
