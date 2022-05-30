@@ -4,13 +4,11 @@ public:
         
         int n = nums.size();
         
-        int cnt = 0;
         int start = 0;
         for(int i=0; i<n; i++){
             
-            if(nums[i] == 0) cnt++;
-            
             if(nums[i] != 0){
+                
                 nums[start] = nums[i];
                 start++;
             }
