@@ -3,22 +3,27 @@ public:
     
     int findDuplicate(vector<int>& nums) {
         
-        int start = 1, end = nums.size() - 1, cnt;
+        // using extra space
         
-        while(start <= end){
+        int n = nums.size();
+        
+        vector<int> vec(n, 0);
+        int ind =  0;
+        
+        for(int i=0; i<n; i++){
             
-            int mid = start + (end - start) / 2;
-            
-            cnt = 0;
-            
-            for(int n : nums){
-                
-                if(n <= mid) cnt++;
-            }
-            
-            if(cnt <= mid) start = mid + 1;
-            else end = mid - 1;
+            vec[nums[i]]++;
         }
-        return start;    
+        
+        for(int i=0; i<vec.size(); i++){
+            
+            if(vec[i] > 1){
+                
+                ind  = i;
+                break;
+            }
+        }
+        
+        return ind;
     }
 };
