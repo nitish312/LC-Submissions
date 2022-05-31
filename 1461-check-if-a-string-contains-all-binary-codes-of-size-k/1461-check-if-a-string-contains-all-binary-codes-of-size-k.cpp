@@ -13,6 +13,11 @@ public:
             st.insert(s.substr(i, k));
         }
         
-        return (st.size() == pow(2, k));      
+        int p = 1;
+        for(int i=0; i<k; i++){
+            p *= 2;
+        }
+        
+        return (st.size() == p);      
     }
 };
