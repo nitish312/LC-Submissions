@@ -4,20 +4,13 @@ public:
         
         vector<int> ans;
         
-        ans.push_back(nums[0]);
+        int sum = 0;
         
-        int prefixSum = nums[0];
-        
-        for(int i=1; i<nums.size(); i++){
+        for(auto a: nums){
             
+            sum += a;
             
-            
-            // for(int j=0; j<=i; j++){
-                
-                prefixSum += nums[i];
-            // }
-            
-            ans.push_back(prefixSum);
+            ans.push_back(sum);
         }
         
         return ans;
