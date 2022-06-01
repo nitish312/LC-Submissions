@@ -6,16 +6,16 @@ public:
         
         ans.push_back(nums[0]);
         
-        
+        int prefixSum = nums[0];
         
         for(int i=1; i<nums.size(); i++){
             
-            int prefixSum = 0;
             
-            for(int j=0; j<=i; j++){
+            
+            // for(int j=0; j<=i; j++){
                 
-                prefixSum += nums[j];
-            }
+                prefixSum += nums[i];
+            // }
             
             ans.push_back(prefixSum);
         }
