@@ -7,11 +7,11 @@ public:
         
         vector<vector<int>> ansMatrix(m, vector<int> (n));
         
-        for(int i=0; i<m; i++)
+        for(int i=0; i<n; i++)
         {    
-            for(int j=0; j<n; j++)
+            for(int j=0; j<m; j++)
             {   
-                ansMatrix[i][j] = matrix[j][i];   
+                ansMatrix[j][i] = matrix[i][j];   
             }
         }
         
