@@ -4,19 +4,21 @@ public:
         
         string LCP_Str = "";
         
-        int n = strs.size();
+        int totalStrings = strs.size();
         
-        if(n == 0) return LCP_Str;
+        if(totalStrings == 0) return LCP_Str;
         
         sort(strs.begin(), strs.end()); 
         // now we have string sorted according to their sizes
         
+        int lastString = totalStrings - 1;
+        
         string smallStr = strs[0];
-        string largeStr = strs[n-1];
+        string largeStr = strs[lastString];
         
         int smallStrSize = smallStr.size();
         
-        for(int i=0; i<smallStrSize; i++){
+        for(int i = 0; i < smallStrSize; i++) {
             
             if(smallStr[i] != largeStr[i]) break;
             
