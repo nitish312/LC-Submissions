@@ -6,11 +6,13 @@ public:
     bool isSafe(vector<string> &board, int r, int c){
         
         for(int i=0; i<r; i++){
+            
             if(board[i][c] == 'Q') return false;
         }
         
         int row = r, col = c;
         while(row >= 0 && col >= 0){
+            
             if(board[row][col] == 'Q') return false;
             row--;
             col--;
@@ -34,7 +36,9 @@ public:
         }
         
         for(int i=0; i<board.size(); i++){
+            
             if(isSafe(board, r, i)){
+                
                 board[r][i] = 'Q';
                 nQueen(board, r+1);
                 board[r][i] = '.';
@@ -42,7 +46,7 @@ public:
         }
     }
     
-    vector<vector<string>> solveNQueens(int n) {
+    vector<vector<string>> solveNQueens(int n){
         
         if(n <= 0) return {{}};
         
