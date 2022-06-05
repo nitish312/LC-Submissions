@@ -33,11 +33,11 @@ public:
         } // iterate till fast reaches the last node of list
                         
         
-        slow -> next = slow -> next -> next; // remove the nth node from last
+        // slow -> next = slow -> next -> next; // remove the nth node from last
         
-        // ListNode* delNode = slow->next;
-        // slow = slow->next;
-        // delete delNode;
+        ListNode* delNode = slow->next;
+        slow->next = delNode->next;
+        delete delNode;
         
         return head;
     }
