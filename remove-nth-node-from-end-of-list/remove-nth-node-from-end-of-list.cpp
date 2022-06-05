@@ -17,12 +17,27 @@ public:
         
         while(n--) fast = fast -> next;      // iterate first n nodes using fast
         
-        if(!fast) return head -> next;       // if fast is already null, it means we have to delete head itself. So, just return next of head
+        if(!fast){ // if fast == NULL
+            
+            // ListNode* delNode = head;
+            // head = head->next;
+            // delete delNode;
+            // return head; 
+            return head->next;
+        } // if fast is already null, it means we have to delete head itself. So, just return next of head
         
-        while(fast -> next)                  // iterate till fast reaches the last node of list
-            fast = fast -> next, slow = slow -> next;            
+        while(fast -> next){
+            
+            fast = fast -> next;
+            slow = slow -> next;
+        } // iterate till fast reaches the last node of list
+                        
         
         slow -> next = slow -> next -> next; // remove the nth node from last
+        
+        // ListNode* delNode = slow->next;
+        // slow = slow->next;
+        // delete delNode;
         
         return head;
     }
