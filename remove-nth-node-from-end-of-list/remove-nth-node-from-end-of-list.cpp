@@ -19,11 +19,11 @@ public:
         
         if(!fast){ // if fast == NULL
             
-            // ListNode* delNode = head;
-            // head = head->next;
-            // delete delNode;
-            // return head; 
-            return head->next;
+            ListNode* delNode = head;
+            head = head->next;
+            delete delNode;
+            return head; 
+            // return head->next;
         } // if fast is already null, it means we have to delete head itself. So, just return next of head
         
         while(fast -> next){
