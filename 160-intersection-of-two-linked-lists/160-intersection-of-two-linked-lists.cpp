@@ -12,17 +12,17 @@ public:
         
         while(headB){
             
-            ListNode* temp = headA;
-            while(temp){
-
-                if(temp == headB) return temp; // headB
-
-                temp = temp->next;
+            ListNode* dummy = headA;
+            while(dummy){
+                
+                if(dummy == headB) return dummy;
+                
+                dummy = dummy->next;
             }
             
             headB = headB->next;
-        }
+        }        
         
-        return NULL;            
+        return NULL;
     }
 };
