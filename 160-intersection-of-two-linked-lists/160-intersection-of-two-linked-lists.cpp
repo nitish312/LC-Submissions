@@ -7,47 +7,39 @@
  * };
  */
 class Solution {
-public:
+public:    
     
-    int getLength(ListNode* temp){
-        int len = 0;
-        while(temp){
-            len++;
-            temp = temp->next;
-        } 
-        return len;
+    void traverse(ListNode* temp1, ListNode* temp2){
+        
+        while(temp1 || temp2){
+            
+           
+            
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+        }
+        
+        
     }
     
-    ListNode* differenceMove(ListNode* temp, int small, int big){
-        int diff = big - small;
-        while(diff--){
-            temp = temp->next;
-        }
-        return temp;
+    void checkIntersection(ListNode* temp1, ListNode* temp2, ListNode *headA, ListNode *headB){
+        
+        if(!temp1) temp1 = headB;
+        else temp2 = headA;
+        
+        traverse(temp1, temp2);
     }
     
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         
-        ListNode* dummy1 = headA;
-        ListNode* dummy2 = headB;
+        ListNode* temp1 = headA;
+        ListNode* temp2 = headB;
         
-        int len1 = getLength(dummy1);
-        int len2 = getLength(dummy2);
-        
-        dummy1 = headA;
-        dummy2 = headB;
-        
-        if(len1 < len2) dummy2 = differenceMove(dummy2, len1, len2);
-        else dummy1 = differenceMove(dummy1, len2, len1);
-        
-        while(dummy1 && dummy2){
-            
-            if(dummy1 == dummy2) return dummy1;
-            
-            dummy1 = dummy1->next;
-            dummy2 = dummy2->next;
+        while(temp1 != temp2){
+            temp1 = !temp1 ? headB : temp1->next;
+            temp2 = !temp2 ? headA : temp2->next;
         }
         
-        return NULL;
+        return temp1;
     }
 };
