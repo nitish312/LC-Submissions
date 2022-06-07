@@ -15,30 +15,30 @@ public:
         
         if(!root) return {};
         
-        vector<vector<int>> mainVec;
-        vector<int> rowVec;
+        vector<vector<int> > mainVec;
         
         queue<TreeNode*> q;
         q.push(root);
         
-        int level = 1;
         while(!q.empty()){
             
-            TreeNode* curr = q.front();
-            q.pop();
-            if(curr->left) q.push(curr->left);
-            if(curr->right) q.push(curr->right);
+            int level = q.size();
             
-            rowVec.push_back(curr->val);
-            level--;
+            vector<int> levelVec;
             
-            if(level == 0){
-                mainVec.push_back(rowVec);
-                rowVec.clear();
-                level = q.size();
+            for(int i=0; i<level; i++){
+                
+                TreeNode* curr = q.front(); 
+                q.pop();
+                
+                levelVec.push_back(curr -> val);
+                
+                if(curr->left) q.push(curr->left);
+                if(curr->right) q.push(curr->right);
             }
+            
+            mainVec.push_back(levelVec);
         }
-        
         return mainVec;
     }
 };
