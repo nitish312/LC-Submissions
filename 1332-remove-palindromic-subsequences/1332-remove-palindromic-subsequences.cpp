@@ -20,10 +20,10 @@ public:
         if(n == 0) return 0;
         if(isPalindrome(s, n)) return 1;
         
-        unordered_set<char> st;
+//         unordered_set<char> st;
         
-        for(int i=0; s[i]!='\0'; i++) st.insert(s[i]);
+//         for(int i=0; s[i]!='\0'; i++) st.insert(s[i]);
         
-        return st.size();
+        return 2;
     }
 };
