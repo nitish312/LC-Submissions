@@ -1,30 +1,28 @@
 class Solution {
 public:
     
-    int totalPaths = 0;
-    int totalZeroes = 1;
-    
-    void dfs(vector<vector<int>>& grid, int x, int y, int count){
+    int dfs(vector<vector<int>> &grid, int x, int y, int zeroCount){
         
         int n = grid.size();
         int m = grid[0].size();
         
-        if(x < 0 || x >= n || y < 0 || y >= m || grid[x][y] == -1) return;
-        
-        if(grid[x][y] == 2){
-            
-            if(totalZeroes == count) totalPaths++; 
-            return;
-        }
+        if(x < 0 || y < 0 || x >= n || y >= m || grid[x][y] == -1) return 0;
+                
+        if(grid[x][y] == 2) 
+            return (zeroCount == -1) ? 1 : 0;
         
         grid[x][y] = -1;
+        zeroCount--;
         
-        dfs(grid, x + 1, y, count+1);
-        dfs(grid, x - 1, y, count+1);
-        dfs(grid, x, y + 1, count+1);
-        dfs(grid, x, y - 1, count+1);
+        int totalPaths = dfs(grid, x+1, y, zeroCount) + 
+                         dfs(grid, x, y+1, zeroCount) +
+                         dfs(grid, x-1, y, zeroCount) +
+                         dfs(grid, x, y-1, zeroCount);
         
         grid[x][y] = 0;
+        zeroCount++;
+        
+        return totalPaths;        
     }
     
     int uniquePathsIII(vector<vector<int>>& grid){
@@ -32,18 +30,19 @@ public:
         int n = grid.size();
         int m = grid[0].size();
         
-        int sx, sy;
-        for(int i=0; i<n; i++) {
+        int sx = 0, sy = 0; // starting block's (x, y) co-ordinates
+        int zeroCount = 0;
+        
+        for(int i=0; i<n; ++i){
             
-            for(int j=0; j<m; j++) {
+            for(int j=0; j<m; ++j){
                 
-                if (grid[i][j] == 0) totalZeroes++;
-                else if (grid[i][j] == 1) sx = i, sy = j;
+                if(grid[i][j] == 0) zeroCount++;
+                else if(grid[i][j] == 1) sx = i, sy = j;
             }
         }
         
-        dfs(grid, sx, sy, 0);
-        
-        return totalPaths;
+        return dfs(grid, sx, sy, zeroCount);
     }
+    
 };
