@@ -14,16 +14,19 @@ public:
         
         if(!head) return NULL;
         
-        ListNode *temp = head;
-        ListNode *delNode = NULL;
+        ListNode* temp = head;
+        ListNode* delNode = NULL;
+        
         while(temp->next){
-            if(temp && temp->val == temp->next->val){
+            
+            if(temp->next->val == temp->val){
                 
                 delNode = temp->next;
-                temp->next = temp->next->next;
+                temp->next = delNode->next;
                 delete delNode;
             }
             else{
+                
                 temp = temp->next;
             }
         }
