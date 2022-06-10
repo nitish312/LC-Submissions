@@ -13,10 +13,12 @@ class Solution {
 public:
     bool checkTree(TreeNode* root) {
         
-        int sum = root->val;
-        int lt = root->left->val;
-        int rt = root->right->val;
+        int currVal = root->val;
+        int leftVal = root->left->val;
+        int rightVal = root->right->val;
         
-        return (sum == (lt+rt));
+        int sum = leftVal + rightVal;
+        
+        return (sum == currVal);
     }
 };
