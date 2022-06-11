@@ -5,7 +5,7 @@ public:
         if(index >= nums.size())
         {
             ans.push_back(nums);
-            // return;
+            return;
         }
         for(int i=index; i<nums.size(); i++)
         {
