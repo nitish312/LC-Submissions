@@ -4,7 +4,7 @@ public:
     void calculatePermutations(vector<int>nums, int index, vector<vector<int>> &ans){
         
         // base condition - think of a smallest valid input
-        if(index == nums.size()){
+        if(index == nums.size()-1){
             ans.push_back(nums);
             return;
         }
