@@ -10,34 +10,43 @@
  */
 class Solution {
 public:
+    
+    int length(ListNode* head){
+        
+        int len = 0;
+        ListNode* temp = head;
+        while(temp){
+            
+            len++;
+            temp = temp->next;
+        }
+        
+        return len;
+    }
+    
     ListNode* rotateRight(ListNode* head, int k){
         
-        if(!head) return head;
+        if(!head || !head->next) return head;
         
-        int totalNodes = 1; // number of nodes
+        ListNode *ptr, *prev;
+        ptr = head;
+        prev = NULL;
         
-        ListNode *newHead, *tail;
-        newHead = tail = head;
+        k = k % length(head);
         
-        while(tail->next){  // get the number of nodes in the list
-        
-            tail = tail->next;
-            totalNodes++;
-        }
-        tail->next = head; // circle the link
-
-        if(k %= totalNodes ){
+        for(int i=0; i<k; i++){
             
-            for(auto i=0; i<totalNodes - k; i++){
+            while(ptr->next){
                 
-                tail = tail->next; // the tail node is the (len-k)-th node (1st node is head)
-            }       
+                prev = ptr;
+                ptr = ptr->next;
+            }
+            
+            ptr->next = head;
+            prev->next = NULL;
+            head = ptr;
         }
         
-        newHead = tail->next; 
-        
-        tail->next = NULL;
-        
-        return newHead;
+        return head;
     }
 };
