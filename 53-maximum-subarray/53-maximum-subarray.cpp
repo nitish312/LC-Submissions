@@ -15,6 +15,8 @@ public:
             maxEle = max(maxEle, nums[i]);
         }
         
-        return (maxSum != 0) ? maxSum : maxEle;
+        if(maxSum == 0) maxSum = maxEle;
+        
+        return maxSum;
     }
 };
