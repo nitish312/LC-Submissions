@@ -4,21 +4,20 @@ public:
         
         int n = nums.size();
         
-        int sum = 0;
-        for(int i = 0; i < n; i++){
+        int totalSum = 0;
+        for(int i=0; i<n; ++i){
             
-            sum += nums[i];
-            nums[i] = sum;
+            totalSum += nums[i];
         }
         
-        for(int i = 0; i < n; i++){
+        int leftSum = 0, rightSum = totalSum;
+        for(int i=0; i<n; ++i){
             
-            int curr = i;
+            rightSum -= nums[i];
             
-            int leftSum = (curr == 0) ? 0 : nums[curr - 1];
-            int rightSum = (curr == n - 1) ? 0 : nums[n - 1] - nums[curr];
+            if(rightSum == leftSum) return i;
             
-            if(leftSum == rightSum) return curr;
+            leftSum += nums[i];
         }
         
         return -1;
