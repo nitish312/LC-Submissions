@@ -3,7 +3,7 @@ public:
     
     void reverseIt(vector<int>& nums, int start, int end){
         
-        while(start < end) swap(nums[start++], nums[end--]);
+        while(start <= end) swap(nums[start++], nums[end--]);
     }
     
     void rotate(vector<int>& nums, int k){
@@ -12,8 +12,10 @@ public:
         
         k %= n;
         
-        reverseIt(nums, 0, n - k - 1);
-        reverseIt(nums, n - k, n - 1);
-        reverseIt(nums, 0, n - 1);
+        int start = 0, end = n - 1;
+        
+        reverseIt(nums, start, end - k);
+        reverseIt(nums, n - k, end);
+        reverseIt(nums, start, end);
     }
 };
