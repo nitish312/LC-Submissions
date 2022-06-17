@@ -4,11 +4,14 @@ public:
         
         int profit = 0;
         
-        for(int i=1; i<prices.size(); i++){
+        int n = prices.size();
+        for(int i=1; i<n; i++){
             
-            if(prices[i] > prices[i-1]){
+            int currDay = i;
+            int prevDay = i - 1;
+            if(prices[currDay] > prices[prevDay]){
                 
-                profit += prices[i] - prices[i-1];
+                profit += prices[currDay] - prices[prevDay];
             }
         }
         
