@@ -10,33 +10,50 @@
  * };
  */
 class Solution {
-public:
+public:   
     
     int cameraCount = 0;
-    int covered = 0;
-    int pleaseCover = 1;
-    int hasCamera = 2;
+    set<TreeNode*> covered; // covered means the node is in the range of camera
     
-    int postOrder(TreeNode* root){
+    void postOrderDFS(TreeNode* curr, TreeNode* parent){ 
+        // we're checking from leaf to root otherwise we may put extra cameras 
+        // because as we increase levels in tree, leaf nodes also increases
         
-        if(!root) return covered;
-        
-        int left = postOrder(root->left);
-        int right = postOrder(root->right);
-        
-        if(left == pleaseCover || right == pleaseCover){
+        if(curr){ // curr node is not null / ues, there is a node
             
-            cameraCount++; 
-            return hasCamera;
-        } 
-        else if(left == hasCamera || right == hasCamera) return covered;
-        else return pleaseCover;
+            // we'll go to its childs with curr node as their parent 
+            postOrderDFS(curr->left, curr); 
+            postOrderDFS(curr->right, curr);
+            
+            // now we've to add the camera to curr node IF
+            // 1. curr's parent is null & curr itself is uncovered OR IF
+            // 2. any one of its child is uncovered
+            if( !parent && covered.find(curr) == covered.end() || 
+                covered.find(curr->left) == covered.end() || 
+                covered.find(curr->right) == covered.end() ){
+                
+                cameraCount++; 
+                
+                // now we've to add curr, its parent and childs in our hashset
+                covered.insert(curr);
+                covered.insert(parent);
+                covered.insert(curr->left);
+                covered.insert(curr->right);
+            }
+        }
     }
     
-    int minCameraCover(TreeNode* root) {
+    int minCameraCover(TreeNode* root){
         
-        return (postOrder(root) == pleaseCover) ? ++cameraCount : cameraCount;
+        if(!root) return 0;
         
-        // return cameraCount;
+        covered.insert(NULL); 
+        // added NULL so we are inserting the children of our leaf nodes into covered category otherwise it would put camera on leaf nodes
+        
+        postOrderDFS(root, NULL); 
+        // root doesn't have any parent 
+        // if our current node is not covered, its parent will get a camera
+        
+        return cameraCount;
     }
 };
