@@ -1,5 +1,13 @@
 class Solution {
 public:
+    
+    void swapThem(vector<vector<int>>& matrix, int row, int col){
+        
+        int temp = matrix[row][col];
+        matrix[row][col] = matrix[col][row];
+        matrix[col][row] = temp;
+    }
+    
     void rotate(vector<vector<int>>& matrix) {
         
         reverse(matrix.begin(), matrix.end());
@@ -10,7 +18,7 @@ public:
             
             for(int j=i+1; j<n; j++){
                 
-                swap(matrix[i][j], matrix[j][i]);
+                swapThem(matrix, i, j);
             }
         }
     }
