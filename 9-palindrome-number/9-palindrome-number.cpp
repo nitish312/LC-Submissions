@@ -4,12 +4,13 @@ public:
      
         if(x < 0) return false;
         
-        int num = x;
+        int n = x;
         long rev = 0;
-        while(num != 0){
+        while(n){
             
-            rev = rev * 10 + num % 10;
-            num /= 10;
+            int lastDigit = n % 10;
+            rev = rev * 10 + lastDigit;
+            n /= 10;
         }
         
         return (rev == x) ? true : false;
