@@ -17,10 +17,11 @@ public:
             return true;
         return check(root->left , root->right);
     }
-    bool check(TreeNode *l , TreeNode* r)
-    {
-        if(l || r)
-        {
+    
+    bool check(TreeNode *l , TreeNode* r){
+        
+        if(l || r){
+            
             if( (l && !r ) || (!l && r))
                return false;
                
@@ -30,7 +31,8 @@ public:
                
             return check(l->left , r->right) && check(l->right , r->left);
         }
+        
         return true;
+        
     }
-    
 };
