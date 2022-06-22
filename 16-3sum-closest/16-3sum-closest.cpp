@@ -3,7 +3,7 @@ public:
     int threeSumClosest(vector<int>& nums, int target) {
         
         int n = nums.size();
-        // if(n < 3) return 0;
+        if(n < 3) return 0;
         
         int sumAll = nums[0]+nums[1]+nums[2];
         
