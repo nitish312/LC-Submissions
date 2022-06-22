@@ -28,7 +28,7 @@ public:
                     int last_left = nums[left], last_right = nums[right];
                     
                     while(left < right && nums[left] == last_left) left++;
-                    while(left < right && nums[left] == last_right) right--;
+                    // while(left < right && nums[left] == last_right) right--;
                 }
 		    }
 
