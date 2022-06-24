@@ -4,8 +4,6 @@ public:
      
         int n = nums.size();
         
-        sort(nums.begin(), nums.end());
-        
         int arraySum = 0;
         for(auto ele: nums) arraySum += ele;
         
