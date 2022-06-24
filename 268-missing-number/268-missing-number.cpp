@@ -4,13 +4,11 @@ public:
      
         int n = nums.size();
         
-        sort(nums.begin(), nums.end());
+        int arraySum = 0;
+        for(auto ele: nums) arraySum += ele;
         
-        for(int i=0; i<=n; i++){
-            
-            if(i == n || i != nums[i]) return i;
-        }
+        int originalSum = n * (n + 1) / 2;
         
-        return -1;
+        return originalSum - arraySum;
     }
 };
