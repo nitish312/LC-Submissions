@@ -2,30 +2,21 @@ class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         
+        unordered_set<int> uniqEle;
+        for(auto ele: nums1) uniqEle.insert(ele);
+            
         vector<int> ans;
         
-        int n = nums1.size();
-        int m = nums2.size();
-        
-        sort(nums1.begin(), nums1.end());
-        sort(nums2.begin(), nums2.end());
-        
-        unordered_set<int> uniqEle;
-        
-        int i = 0, j = 0;
-        while(i < n && j < m){
+        for(auto ele: nums2){
             
-            if(nums1[i] < nums2[j]) i++;
-            else if(nums1[i] > nums2[j]) j++;
-            else{
+            auto it = uniqEle.find(ele);
+            
+            if(it != uniqEle.end()){
                 
-                uniqEle.insert(nums1[i]);
-                i++;
-                j++;
+                ans.push_back(ele);
+                uniqEle.erase(it);
             }
         }
-        
-        for(auto ele: uniqEle) ans.push_back(ele);
         
         return ans;
     }
