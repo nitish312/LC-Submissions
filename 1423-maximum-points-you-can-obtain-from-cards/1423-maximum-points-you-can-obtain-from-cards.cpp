@@ -4,8 +4,9 @@ public:
         
         int n = cardPoints.size();
     
-        int sum =0;
-        for(int i=0; i<k; i++) sum += cardPoints[i];
+        int sum = 0;
+        // for(int i=0; i<k; i++) sum += cardPoints[i];
+        sum = accumulate(cardPoints.begin(), cardPoints.begin() + k , sum);
         
         int maxsum = sum;
         
