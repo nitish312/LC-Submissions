@@ -4,19 +4,22 @@ public:
         
         int n = cardPoints.size();
     
-        int sum = 0;
-        for(int i=0; i<k; i++){
-
-            sum += cardPoints[i];
+        int res = 0;
+		
+		//First k elements in our window
+        for(int i=0; i<k; i++) res += cardPoints[i];
+        
+        int curr = res;
+        for(int i=k-1; i>=0; i--){
+            
+			//We remove the last visited ele and add the non-visited ele from the last
+            curr -= cardPoints[i];
+            curr += cardPoints[n - k + i];
+			
+            //We check the maximum value any possible combination can give
+			res = max(res, curr);
         }
         
-        int maxi = sum; 
-        
-        for(int i=0; i<k; i++){
-        
-            sum = sum - cardPoints[k-i-1] + cardPoints[n-i-1];
-            maxi = max(maxi, sum);
-        }
-        return maxi;
+        return res;
     }
 };
