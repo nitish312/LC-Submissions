@@ -8,14 +8,14 @@ public:
         
         for(auto ch: s) char_counts[ch]++;
         
-        unordered_set<int> seen;
+        unordered_set<int> seen; // set for counts we hav seen
         
         for(auto i: char_counts){
             
             int charFreq = i.second;
-            while(seen.find(charFreq) != seen.end()){
-                
-                charFreq--;
+            while(seen.find(charFreq) != seen.end()){ // if we found same count
+                // decrementing it until its new count is not present in seen set
+                charFreq--; 
                 deletions++;
             }
             
