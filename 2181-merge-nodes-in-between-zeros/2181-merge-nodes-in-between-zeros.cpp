@@ -12,41 +12,28 @@ class Solution {
 public:
     ListNode* mergeNodes(ListNode* head) {
         
+        ListNode* pre = new ListNode(0);
+        ListNode* ptr = pre;
         ListNode* temp = head;
-        temp = temp->next;
         
-        vector<int> storeSum;
         int sum = 0;
+        temp = temp->next;
         while(temp){
-            
-            sum += temp->val;
-            
-            if(temp->val == 0){
-                
-                storeSum.push_back(sum);
-                sum = 0;
+           
+            while(temp->val != 0){
+                  
+                sum += temp->val;
+                temp = temp->next;
             }
             
-            temp = temp->next;
-        }
-        
-        temp = head;
-        
-        int n = storeSum.size();
-        for(int i=0; i<n; i++){
-            
-            temp->val = storeSum[i];
-            temp = temp->next;
-        }
-        temp->next = NULL;
-        
-        ListNode* ptr = head;
-        while(ptr->next != temp){
-            
+            ptr->next = new ListNode(sum);
             ptr = ptr->next;
+            sum = 0;
+            temp = temp->next;
         }
-        ptr->next = NULL;
+        // delete(ptr);
+        // delete(temp);
         
-        return head;
+        return pre->next;
     }
 };
