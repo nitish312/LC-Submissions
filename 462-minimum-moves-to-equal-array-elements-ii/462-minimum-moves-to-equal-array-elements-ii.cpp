@@ -1,37 +1,16 @@
 class Solution {
-public:
-    void increaseThem(vector<int>& nums, int start, int mid, int& count){
-        
-        int end = mid - 1;
-        for(int i=start; i<=end; i++){
-            
-            int ele = nums[i];
-            count += nums[mid] - ele;
-        }
-    }
-    
-    void decreaseThem(vector<int>& nums, int end, int mid, int& count){
-        
-        int start = mid + 1;
-        for(int i=start; i<=end; i++){
-            
-            int ele = nums[i];
-            count += ele - nums[mid];
-        }
-    }
-    
+public:   
     int minMoves2(vector<int>& nums) {
         
         int n = nums.size();
-        
+    
         int count = 0;
         
-        sort(nums.begin(), nums.end()); // O(N*logN)
+        sort(nums.begin(), nums.end()); 
         
-        int mid = n / 2;
+        int median = nums[n/2];
         
-        increaseThem(nums, 0, mid, count);
-        decreaseThem(nums, n-1, mid, count);
+        for(auto& i: nums) count += abs(median - i);
         
         return count;
     }
