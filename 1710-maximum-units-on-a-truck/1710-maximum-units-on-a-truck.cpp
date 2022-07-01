@@ -1,39 +1,26 @@
 class Solution {
 public:
+    
+    static bool myfunction(vector<int>& a, vector<int>& b){
+        // sorting by no.of units in box
+        return a[1] > b[1];
+    }
+
+    
     int maximumUnits(vector<vector<int>>& boxTypes, int truckSize) {
         
-        priority_queue<pair<int, int>> pq;
-        
-        // to count how many boxes we picked till now
-        int count = 0;
-        
-        // sort using no. of units in box = 2nd parameter
-        for(auto i: boxTypes){
-            
-            pq.push({i[1], i[0]});
-        }
-        
+        sort(boxTypes.begin(), boxTypes.end(), myfunction);
+		//greedily pick boxes till capacity is full
         int units = 0;
         
-        while(!pq.empty() && count < truckSize){
+        for(auto box: boxTypes){
             
-            int currBoxes = pq.top().second; // no. of current boxes
-            int currBoxUnits = pq.top().first; // no. of units in current box
+            int x = min(box[0], truckSize);  //choose minimum boxes from available boxes and capacity left
+            units += (x * box[1]);  //adding units in units
             
-            if(count + currBoxes <= truckSize){
-                
-                count += currBoxes; 
-                units += currBoxes * currBoxUnits;
-            }
-            else{ //curr boxes are more than required, so just take how many required
-                
-                int requiredBoxes = truckSize - count;
-                // count += requiredBoxes;
-                units += requiredBoxes * currBoxUnits;
-                return units;
-            }
+            truckSize -= x;  //reduce the capacity
             
-            pq.pop();
+            if(!truckSize) break;  //capacity full
         }
         
         return units;
