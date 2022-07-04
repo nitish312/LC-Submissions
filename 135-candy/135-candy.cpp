@@ -4,34 +4,27 @@ public:
         
         int n = ratings.size();
         
-        vector<int> fromLeft(n+1, 1);
+        vector<int> ans(n, 1);
         
         for(int i=1; i<n; i++){
             
-            if(ratings[i] > ratings[i-1]){
+            if(ratings[i] > ratings[i-1] && ans[i] <= ans[i-1]){
                 
-                fromLeft[i] = fromLeft[i-1] + 1;
+                ans[i] = ans[i-1] + 1;
             }
         }
         
-        int right = 1;
-        
         for(int i=n-2; i>=0; i--){
             
-            if(ratings[i] > ratings[i+1]){
+            if(ratings[i] > ratings[i+1] && ans[i] <= ans[i+1]){
                 
-                right++;
-                fromLeft[i] = max(right, fromLeft[i]);
+                ans[i] = ans[i+1] + 1;
             }
-            else right = 1;
         }
         
         int sum = 0;
         
-        for(int i=0; i<n; i++){
-            
-            sum += fromLeft[i];
-        }
+        sum = accumulate(ans.begin(), ans.end(), sum);
         
         return sum;
     }
