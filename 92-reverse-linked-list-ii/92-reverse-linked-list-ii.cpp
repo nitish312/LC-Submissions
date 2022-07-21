@@ -10,28 +10,36 @@
  */
 class Solution {
 public:
+    
+    void reverseIt(vector<int> &arr , int left , int right){
+        while(left < right){
+            swap(arr[left] , arr[right]);
+            left++;
+            right--;
+        }
+    }
+    
     ListNode* reverseBetween(ListNode* head, int left, int right) {
         
-        ListNode *dummy = new ListNode(0);
-        ListNode *pre = dummy;
-        ListNode *cur;
+        ListNode* itr = head;
+        vector<int> arr;
         
-        dummy->next = head;
-        for(int i=0; i<left-1; i++){
+        while(itr){
             
-            pre = pre->next;
-        }
-            
-        cur = pre->next;
-            
-        for(int i=0; i <right-left; i++){
-            
-            ListNode *temp = pre->next;
-            pre->next = cur->next;
-            cur->next = cur->next->next;
-            pre->next->next = temp;
+            arr.push_back(itr->val);
+            itr = itr->next;
         }
         
-        return dummy->next;
+        reverseIt(arr, left-1, right-1);
+        
+        head = new ListNode(-1000);
+        itr = head;
+        for(auto i: arr){
+            
+            itr->next = new ListNode(i);
+            itr = itr->next;
+        }
+        
+        return head->next;
     }
 };
